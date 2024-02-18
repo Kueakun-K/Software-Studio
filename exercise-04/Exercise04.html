@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <div id="maincontainer"></div>
+        <script>
+            const exercise = document.createElement("h1")
+            exercise.innerHTML = "Exercise 04: JavaScript&DOM"
+
+            const pseudoButton = document.createElement("button")
+            pseudoButton.innerHTML = "Click me to display Date and Time"
+            pseudoButton.style.display = "none"
+
+            const dateTimeButton = document.createElement("button")
+            dateTimeButton.innerHTML = "Click me to display Date and Time"
+            let showDateTime = false
+            const buttonColors = ["yellow", "pink", "green", "orange", "blue", "purple", "red"]
+            dateTimeButton.onclick = () => {
+                if (showDateTime == false) {
+                    showDateTime = true
+                    let index = 0
+                    worker = new Worker("WebWorker.js")
+                    worker.onmessage = (event) => {
+                        dateTimeButton.innerHTML = event.data
+                        dateTimeButton.style.position = "fixed"
+                        dateTimeButton.style.top = 0
+                        dateTimeButton.style.right = 0
+                        dateTimeButton.style.border = "solid black 2px"
+                        dateTimeButton.style.color = buttonColors[index++]
+                        if (index == 6){
+                            index = 0
+                        }
+                        dateTimeButton.style.backgroundColor = buttonColors[index + 1]
+                    }
+                    pseudoButton.style.display = ""
+                    pseudoButton.style.visibility = "hidden" 
+                }
+                else {
+                    showDateTime = false
+                    pseudoButton.style.display = "none"
+                    pseudoButton.style.visibility = ""
+                    worker.terminate()
+                    dateTimeButton.style.position = "" 
+                }
+            }
+            
+            const personalContainer = document.createElement("div")
+            personalContainer.style.marginTop = "2rem"
+            personalContainer.style.width = "fit-content"
+            
+            const personal = document.createElement("p")
+            personal.innerHTML = "Personal Info"
+            personal.style.cursor = "pointer"
+            personal.style.textDecoration = "underline"
+            personal.style.color = "pink"
+            personal.onmouseover = () => {
+                personal.style.color = "blue"
+                personal.style.background = "yellow"
+            }
+            personal.onmouseout = () => {
+                personal.style.color = "pink"
+                personal.style.background = ""
+            }
+            personalContainer.appendChild(personal)
+
+            const personalList = document.createElement("ul")
+            personalList.style.display = "none"
+            const name = document.createElement("li")
+            name.innerHTML = "Kueakun Niyomsit, ID: 63010095"
+            personalList.appendChild(name)
+            const subject = document.createElement("li")
+            subject.innerHTML = "Subject: Software Studio"
+            personalList.appendChild(subject)
+            const semester = document.createElement("li")
+            semester.innerHTML = "Semester: 2"
+            personalList.appendChild(semester)
+
+            let showPersonalList = false
+            personal.onclick = () => {
+                if (showPersonalList == false) {
+                    showPersonalList = true
+                    personalList.style.display = ""
+                }
+                else {
+                    showPersonalList = false
+                    personalList.style.display = "none"
+                }
+            }
+
+            const snapshots = document.createElement("h1")
+            snapshots.innerHTML = "Snapshots"
+
+            const image = document.createElement("img")
+            image.src = "https://softwarestudio.s3.ap-southeast-1.amazonaws.com/exercise-04/CE+KMITL+Banner+Text.png"
+            image.style.width = "500px"
+
+            const snapshotsList = document.createElement("ul")
+            const cat = document.createElement("li")
+            cat.innerHTML = "Cat"
+            cat.style.cursor = "pointer"
+            cat.style.textDecoration = "underline"
+            cat.style.color = "blue"
+            cat.onclick= () => {
+               image.src = "https://softwarestudio.s3.ap-southeast-1.amazonaws.com/exercise-04/cat.jpg"
+            }
+            snapshotsList.appendChild(cat)
+
+            const newjeans = document.createElement("li")
+            newjeans.innerHTML = "Newjeans"
+            newjeans.style.cursor = "pointer"
+            newjeans.style.textDecoration = "underline"
+            newjeans.style.color = "blue"
+            newjeans.onclick= () => {
+               image.src = "https://softwarestudio.s3.ap-southeast-1.amazonaws.com/exercise-04/newjeans.jpg"
+            }
+            snapshotsList.appendChild(newjeans)
+
+            const bernice = document.createElement("li")
+            bernice.innerHTML = "Bernice"
+            bernice.style.cursor = "pointer"
+            bernice.style.textDecoration = "underline"
+            bernice.style.color = "blue"
+            bernice.onclick= () => {
+               image.src = "https://softwarestudio.s3.ap-southeast-1.amazonaws.com/exercise-04/bernice.png"
+            }
+            snapshotsList.appendChild(bernice)
+
+            const dogs = document.createElement("li")
+            dogs.innerHTML = "Dogs"
+            dogs.style.cursor = "pointer"
+            dogs.style.textDecoration = "underline"
+            dogs.style.color = "blue"
+            dogs.onclick= () => {
+               image.src = "https://softwarestudio.s3.ap-southeast-1.amazonaws.com/exercise-04/dogs.png"
+            }
+            snapshotsList.appendChild(dogs)
+        
+            maincontainer.appendChild(exercise)
+            maincontainer.appendChild(dateTimeButton)
+            maincontainer.appendChild(pseudoButton)
+            maincontainer.appendChild(personalContainer)
+            maincontainer.appendChild(personalList)
+            maincontainer.appendChild(snapshots)
+            maincontainer.appendChild(snapshotsList)
+            maincontainer.appendChild(image)
+        </script>
+    </body>
+</html>
